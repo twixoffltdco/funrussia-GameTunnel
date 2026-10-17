@@ -1,17 +1,26 @@
-# 02 — Game Tunnel / Linux VPS
 
-Эта часть предназначена для **обычного Linux VPS**, на котором можно запустить WireGuard, включить маршрутизацию и настроить NAT. Не деплой как статический сайт на Layero.
+# FunRussia Game Tunnel
 
-## Файлы
-- `wg-server.example.conf` — шаблон сервера.
-- `wg-iphone.example.conf` — шаблон iPhone-клиента.
-- `INSTALL_NOTES.md` — безопасная последовательность подготовки.
+WireGuard tunnel prototype for iPhone connectivity testing.
 
-## Обязательные неизвестные
-- публичный IP VPS, на котором будет WireGuard;
-- Linux-дистрибутив и доступ администратора;
-- подтверждённый транспорт игрового порта (UDP/TCP);
-- находится ли игровой сервер `185.207.214.14` на этом же VPS или отдельно;
-- возможность открыть UDP-порт WireGuard в панели хостинга и firewall.
+## Required deployment settings
 
-Пока эти данные не известны, шаблоны не могут подключить клиента сами.
+- Docker runtime with WireGuard support
+- NET_ADMIN capability
+- Accessible inbound UDP port 51820
+- IP forwarding and NAT/routing support
+- Public SERVERURL pointing to the actual WireGuard endpoint
+
+## Game destination
+
+185.207.214.14:7785
+
+The iPhone peer is configured to route the game server IP
+through the tunnel using ALLOWEDIPS=185.207.214.14/32.
+
+## Important
+
+A successful image build does not prove that the tunnel works.
+The host must support WireGuard networking and inbound UDP.
+Verify the actual game transport protocol and test the connection
+from an iPhone before announcing availability to players.
